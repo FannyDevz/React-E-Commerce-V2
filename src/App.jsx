@@ -100,13 +100,13 @@ function App() {
             by
             {' '}
             <a
-              href="https://github.com/roziqinkhoeru"
+              href="https://github.com/FannyDevZ"
               className="text-lime-500 hover:text-lime-600 transition duration-100 ease-in-out"
               target="_blank"
               rel="noopener noreferrer"
-              title="Khoeru Roziqin"
+              title="FannyDevZ"
             >
-              Khoeru Roziqin
+             Fanny
             </a>
           </p>
         </div>
