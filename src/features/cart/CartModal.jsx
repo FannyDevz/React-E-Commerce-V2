@@ -42,7 +42,7 @@ function CartModal({ onClose, onCheckout }) {
 
   const handleCheckout = () => {
     if (selectTotalItemCart === 0) return;
-    const phone = '6282314950438';
+    const phone = import.meta.env.PHONE_NUMBER;
     const message = encodeURIComponent(
       `Halo Admin,\nSaya ingin melakukan checkout untuk pembelian barang-barang berikut:
       ${cartItems?.map(
