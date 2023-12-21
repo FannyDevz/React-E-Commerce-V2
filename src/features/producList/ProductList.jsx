@@ -227,8 +227,9 @@ function ProductList({ onOpen, onClose, onOpenFilter }) {
           {filteredProducts?.length > 0 ? (
             filteredProducts?.map((product) => (
               <div
-                className="relative col-span-full xxs:col-span-2 mobile:col-span-4 md:col-span-3 xl:col-span-2 w-full flex flex-col justify-between bg-white p-3 rounded-2xl border border-gray-200"
+                className="relative col-span-full xxs:col-span-2 mobile:col-span-4 md:col-span-3 xl:col-span-2 w-full flex flex-col justify-between bg-white p-3 rounded-2xl border border-gray-200  hover:scale-105 transition-all duration-100 ease-in-out"
                 key={product?.id}
+                onClick={() => handleOpenModalProduct(product)}
               >
                 <div className="mb-2">
                   <figure className="mb-1 bg-white overflow-hidden rounded-lg p-4 flex items-center justify-center h-32 w-full">

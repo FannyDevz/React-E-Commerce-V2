@@ -76,9 +76,9 @@ function App() {
         onOpenWishlist={handleOpenModalWishlist}
       />
       <main className="mt-24 container max-w-7xl mx-auto px-5 sm:px-6 min-h-[calc(100vh-189px)]">
-        <h1 className="text-center font-bold text-2xl mb-10 pt-6 hidden mobile:block">
-          Shop Now
-        </h1>
+        {/*<h1 className="text-center font-bold text-2xl mb-10 pt-6 hidden mobile:block">*/}
+        {/*  /!*Shop Now*!/*/}
+        {/*</h1>*/}
         <ProductList
           onOpen={handleOpenModalProduct}
           onClose={handleCloseModalProduct}
