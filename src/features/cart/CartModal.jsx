@@ -41,7 +41,7 @@ function CartModal({ onClose, onCheckout }) {
     dispatch(removeItemFromCart(id));
   };
   const handleCheckCoupon = () => {
-      if (coupon === 'ABC123') {
+      if (coupon === 'FANNY2023') {
           setValCoupon('Coupon valid - Get 10% discount')
       }
       else {
