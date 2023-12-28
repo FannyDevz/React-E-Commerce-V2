@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   ChevronLeftIcon,
   MinusIcon,
   PlusIcon,
   TicketIcon,
+  TruckIcon,
   XIcon,
 } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -39,7 +40,36 @@ function CartModal({ onClose, onCheckout }) {
   const handleRemoveItemCart = (id) => {
     dispatch(removeItemFromCart(id));
   };
-
+  const handleCheckCoupon = () => {
+      if (coupon === 'ABC123') {
+          setValCoupon('Coupon valid - Get 10% discount')
+      }
+      else {
+          setValCoupon('Coupon invalid')
+      }
+  }
+  const [coupon, setCoupon] = useState('')
+  const [valCoupon, setValCoupon] = useState('')
+  const delivery = [
+    {
+        id : 1,
+      name : 'JNE',
+      price : 1.2,
+      desc : "1 - 2 hari",
+    },
+    {
+        id : 2,
+      name : 'JNT',
+      price : 1.5,
+      desc : "2 - 3 hari",
+    },
+    {
+        id : 3,
+      name : 'Sicepat',
+      price : 2,
+      desc : "3 - 4 hari",
+    }
+  ]
   const handleCheckout = () => {
     if (selectTotalItemCart === 0) return;
     const phone = import.meta.env.VITE_PHONE_NUMBER;
@@ -99,91 +129,134 @@ function CartModal({ onClose, onCheckout }) {
                 </button>
               </div>
             ) : (
-              <div className="mb-3">
-                {cartItems?.map((product) => (
-                  <div
-                    className="border-b border-dashed border-gray-200 py-4 flex items-center space-x-3"
-                    key={product?.id}
-                  >
-                    <div className="">
-                      <figure className="overflow-hidden w-14 h-20 px-2">
-                        <img
-                          src={product?.image}
-                          alt={product?.title}
-                          className="w-full h-full object-contain object-center"
-                        />
-                      </figure>
-                    </div>
-                    <div className="w-full">
-                      <h6 className="relative font-bold text-sm text-gray-800 pr-8 line-clamp-2 hover:line-clamp-none mb-px">
-                        {product?.title}
-                        <span
-                          className="absolute top-0 right-0 cursor-pointer"
-                          role="presentation"
-                          onClick={() => handleRemoveItemCart(product.id)}
-                        >
+               <div className="mb-3">
+                 {cartItems?.map((product) => (
+                     <div
+                         className="border-b border-dashed border-gray-200 py-4 flex items-center space-x-3"
+                         key={product?.id}
+                     >
+                       <div className="flex items-center">
+                         <input
+                             type="checkbox"
+                             // checked={selectedItems.includes(product?.id)}
+                             // onChange={() => handleToggleSelect(product?.id)}
+                             className="mr-2"
+                         />
+                         <figure className="overflow-hidden w-14 h-20 px-2">
+                           <img
+                               src={product?.image}
+                               alt={product?.title}
+                               className="w-full h-full object-contain object-center"
+                           />
+                         </figure>
+                       </div>
+                       <div className="w-full">
+                         <h6 className="relative font-bold text-sm text-gray-800 pr-8 line-clamp-2 hover:line-clamp-none mb-px">
+                           {product?.title}
+                           <span
+                               className="absolute top-0 right-0 cursor-pointer"
+                               role="presentation"
+                               onClick={() => handleRemoveItemCart(product.id)}
+                           >
                           <XIcon
-                            size={20}
-                            className="stroke-gray-400 hover:stroke-red-500"
+                              size={20}
+                              className="stroke-gray-400 hover:stroke-red-500"
                           />
                         </span>
-                      </h6>
-                      <p className="text-xs text-gray-400 mb-1 capitalize">
-                        {product?.category}
-                      </p>
-                      <div className="flex items-center justify-between">
-                        <h6 className="font-semibold">
-                          $
-                          {product?.totalPrice.toFixed(2)}
-                          {' '}
-                          USD
-                        </h6>
-                        <div className="flex items-center border border-gray-300 rounded-full overflow-hidden">
-                          <button
-                            type="button"
-                            aria-label="Minus Item"
-                            className="px-3 py-2 leading-normal"
-                            onClick={() => handleMinusItemCart(product)}
-                          >
-                            <MinusIcon
-                              size={14}
-                              strokeWidth={3}
-                            />
-                          </button>
-                          <p className="text-sm">{product?.quantity}</p>
-                          <button
-                            type="button"
-                            aria-label="Add Item"
-                            className="px-3 py-1.5 leading-normal"
-                            onClick={() => handleAddItemCart(product)}
-                          >
-                            <PlusIcon
-                              size={14}
-                              strokeWidth={3}
-                            />
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                         </h6>
+                         <p className="text-xs text-gray-400 mb-1 capitalize">
+                           {product?.category}
+                         </p>
+                         <div className="flex items-center justify-between">
+                           <h6 className="font-semibold">
+                             $
+                             {product?.totalPrice.toFixed(2)}
+                             {' '}
+                             USD
+                           </h6>
+                           <div className="flex items-center border border-gray-300 rounded-full overflow-hidden">
+                             <button
+                                 type="button"
+                                 aria-label="Minus Item"
+                                 className="px-3 py-2 leading-normal"
+                                 onClick={() => handleMinusItemCart(product)}
+                             >
+                               <MinusIcon
+                                   size={14}
+                                   strokeWidth={3}
+                               />
+                             </button>
+                             <p className="text-sm">{product?.quantity}</p>
+                             <button
+                                 type="button"
+                                 aria-label="Add Item"
+                                 className="px-3 py-1.5 leading-normal"
+                                 onClick={() => handleAddItemCart(product)}
+                             >
+                               <PlusIcon
+                                   size={14}
+                                   strokeWidth={3}
+                               />
+                             </button>
+                           </div>
+                         </div>
+                       </div>
+                     </div>
+                 ))}
+               </div>
             )}
           </div>
         </div>
+        {totalItem !== 0 ? (
         <div className="sticky md:static inset-x-0 bottom-0">
           <div className="border-t border-gray-200 px-5">
+            <div className="relative mb-4 mt-4.5">
+              <select
+                  className="w-full pr-4 py-3 pl-12 text-sm bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-100 ease-in-out font-semibold uppercase text-gray-700"
+                  disabled={totalItem === 0}
+              >
+                <option value="" disabled>
+                  Select Delivery
+                </option>
+                {delivery &&
+                    delivery?.map((item) => (
+                        <option key={item?.id} value={item?.id} className="py-2 border-2 border-gray-200 text-sm text-gray-700 font-semibold bg-gray-100">
+                          {item?.name}            -             ${item?.price.toFixed(2)} ({item?.desc})
+                        </option>
+                    ))}
+              </select>
+              <TruckIcon size={22} className="absolute top-3 left-4 stroke-gray-400" />
+            </div>
+          </div>
+        </div>
+        ): null}
+        <div className="sticky md:static inset-x-0 bottom-0">
+          <div className="border-t border-gray-200 px-5">
+
             <div className="relative mb-4 mt-4.5">
               <input
                 type="text"
                 className="w-full pr-4 py-3 rounded-full pl-12 text-sm bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-100 ease-in-out font-semibold uppercase text-gray-700"
                 placeholder="Add coupon code"
                 disabled={totalItem === 0}
+                onChange={(e) => setCoupon(e.target.value)}
               />
               <TicketIcon
                 size={22}
                 className="absolute top-3 left-4 stroke-gray-400"
               />
+              <button
+                  className="absolute  right-1 px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800"
+                  disabled={totalItem === 0}
+                  onClick={handleCheckCoupon}
+              >
+                Check
+              </button>
+              {valCoupon === '' ? null : (
+                  <div className="flex w-full flex-col items-center justify-center mt-4.5">
+                    <p className=" bg-red-500 text-sm text-white px-4 py-1.5 rounded text-center">{valCoupon}</p>
+                  </div>
+              )}
             </div>
             <div className="flex items-center justify-between">
               <p className="">Total</p>
